@@ -2,6 +2,7 @@ import type { I18nStrings } from "../types";
 
 const siteLocales = {
   "site.name": "Retro博客",
+  "site.description": "这个网站基于astro、react、retroui开发的博客网站",
   "site.nav.home": "首页",
   "site.nav.posts": "文章",
   "site.nav.tags": "标签",

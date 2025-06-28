@@ -1,6 +1,7 @@
 import type { I18nStrings } from "../types";
 const siteLocales = {
   "site.name": "RetroBlog",
+  "site.description": "This website is a blog website developed based on astro, react, and retroui",
   "site.nav.home": "Home",
   "site.nav.posts": "Posts",
   "site.nav.tags": "Tags",

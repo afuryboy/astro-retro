@@ -1,5 +1,6 @@
 export interface I18nStrings {
   "site.name": string;
+  "site.description": string;
   "site.nav.home": string;
   "site.nav.posts": string;
   "site.nav.tags": string;

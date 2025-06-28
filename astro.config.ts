@@ -7,7 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "http://www.qiankun.com",
+  site: "https://www.afruyboy.site/",
 
   i18n: {
     locales: ["zh", "en"],
