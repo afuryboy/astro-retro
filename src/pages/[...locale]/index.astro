@@ -3,6 +3,7 @@ import type { GetStaticPaths } from "astro";
 import PrimaryLayout from "@/layout/PrimaryLayout.astro";
 import { DEFAULT_LOCALE, SUPPORT_LOCALES } from "@/i18n/config";
 import Hero from "@/layout/Hero.astro";
+import { translateFor } from "@/i18n/utils";
 
 export const getStaticPaths = (() =>
   SUPPORT_LOCALES.map((locale) => {
@@ -12,8 +13,10 @@ export const getStaticPaths = (() =>
       },
     };
   })) satisfies GetStaticPaths;
+
+const t = translateFor(Astro.currentLocale)
 ---
 
-<PrimaryLayout>
+<PrimaryLayout title={t('site.name')}>
   <Hero />
 </PrimaryLayout>
