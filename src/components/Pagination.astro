@@ -1,0 +1,29 @@
+---
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { Button } from "./retroui/Button";
+import { Text } from "./retroui/Text";
+import { cn } from "@/lib/utils";
+export interface Props {
+  page: Page<CollectionEntry<"blog">>;
+  class: string;
+}
+
+const { page, class: className = '' } = Astro.props;
+---
+
+{
+  page.lastPage > 1 && (
+    <div class={cn("flex justify-center items-center space-x-2", className)}>
+      <a href={page.url.prev}>
+        <Button>pre</Button>
+      </a>
+      <Text>{page.currentPage}</Text>
+      <Text>/</Text>
+      <Text>{page.lastPage}</Text>
+      <a href={page.url.next}>
+        <Button>next</Button>
+      </a>
+    </div>
+  )
+}

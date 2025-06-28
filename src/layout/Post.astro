@@ -1,0 +1,73 @@
+---
+import Datetime from "@/components/Datetime.astro";
+import GoBack from "@/components/GoBack.astro";
+import { Badge } from "@/components/retroui/Badge";
+import { Card } from "@/components/retroui/Card";
+import { Text } from "@/components/retroui/Text";
+import { render } from "astro:content";
+import { getRelativeLocalePath } from "@/i18n/utils";
+import {components} from '@/components/MDXComponents'
+import { Image } from "astro:assets";
+import pre from '@/components/CodeBlockWrapper.astro'
+
+const { value } = Astro.props;
+const { title, description, tags, pubDatetime, modDatetime, timezone, author } =
+  value.data;
+const { Content } = await render(value);
+const combine = {
+  ...components,
+  pre
+}
+---
+
+<section class="container lg:max-w-4xl mx-auto my-8 px-4 lg:px-0">
+  <GoBack />
+  <div class="flex my-4">
+    <span class="flex border-2 rounded-full overflow-hidden relative w-10 h-10 mr-2">
+      <Image alt="avatar" src={author.avatar} />
+    </span>
+    <div class="ml-2">
+      <Text>
+        {author.name}
+      </Text>
+      <Text>
+        {author.description}
+      </Text>
+    </div>
+  </div>
+  <Card className="w-full mb-8 bg-gradient-to-r from-pink-200 to-purple-200">
+    <Card.Content className="w-full flex justify-center">
+      <Text as="h2">{title}</Text>
+    </Card.Content>
+  </Card>
+
+  <div class="flex space-x-2 w-full mb-2">
+    <Datetime
+      pubDatetime={pubDatetime}
+      modDatetime={modDatetime}
+      timezone={timezone}
+    />
+    <span>|</span>
+    <div class="flex justify-center space-x-2">
+      {
+        tags?.map((tag) => (
+          <a href={getRelativeLocalePath(Astro.currentLocale, `/tags/${tag}/`)}>
+            <Badge
+              key={tag}
+              size="sm"
+              variant="surface"
+              className={`bg-${
+                ["red", "green", "blue", "yellow", "purple", "pink"][
+                  tags.indexOf(tag) % 6
+                ]
+              }-300`}
+            >
+              {tag}
+            </Badge>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <Content components={combine} />
+</section>

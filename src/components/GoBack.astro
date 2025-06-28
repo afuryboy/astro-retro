@@ -1,0 +1,19 @@
+---
+import { Button } from "./retroui/Button"
+import {ChevronLeft } from "lucide-react";
+const {class: className} = Astro.props
+---
+
+<div id="go-back" class:list={[className]}>
+  <Button size="sm"><ChevronLeft /> go back</Button>
+</div>
+
+<script>
+  function bindGoBackHandle() {
+    let dom : HTMLElement = document.querySelector("#go-back") ;
+    dom?.addEventListener("click", () => {
+      history.back();
+    });
+  }
+  document.addEventListener("astro:page-load", bindGoBackHandle);
+</script>

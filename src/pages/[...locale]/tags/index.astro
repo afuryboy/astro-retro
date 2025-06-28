@@ -1,0 +1,50 @@
+---
+import { Button } from "@/components/retroui/Button";
+import { DEFAULT_LOCALE, SUPPORT_LOCALES } from "@/i18n/config";
+import { getRelativeLocalePath, translateFor } from "@/i18n/utils";
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+import getUniqueTags from "@/lib/getUniqueTags";
+import { getCollection } from "astro:content";
+import { Text } from "@/components/retroui/Text";
+import getTagsWithCount from "@/lib/getTagsWithCount";
+
+const posts = await getCollection("blog");
+export const getStaticPaths = async () => {
+  return SUPPORT_LOCALES.map((locale) => ({
+    params: { locale: locale === DEFAULT_LOCALE ? undefined : locale },
+  }));
+};
+const t = translateFor(Astro.currentLocale);
+
+
+const tags = getTagsWithCount(posts)
+   
+    
+---
+
+<PrimaryLayout>
+  <section class="container max-w-3xl mx-auto px-4 lg:px-0">
+    <div class="flex justify-center items-center py-8">
+      <Text as="h2">{t("tag.title")}</Text>
+    </div>
+    <div class="flex flex-wrap">
+      {
+        tags.map((tag, idx) => (
+          <a
+            href={getRelativeLocalePath(
+              Astro.currentLocale,
+              `/tags/${tag.tag}/`
+            )}
+            class="mr-2 mb-2"
+          >
+            <Button className={`bg-${
+                ["red", "green", "blue", "yellow", "purple", "pink"][
+                  (idx+1) % 6
+                ]
+              }-300`}>{tag.tag} {tag.count>1? `(${tag.count})`: ``}</Button>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</PrimaryLayout>

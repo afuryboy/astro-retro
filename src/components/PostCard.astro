@@ -1,0 +1,63 @@
+---
+import { getRelativeLocalePath } from "@/i18n/utils";
+import { Card } from "./retroui/Card";
+import { Text } from "./retroui/Text";
+import { Image } from "astro:assets";
+import Datetime from "./Datetime.astro";
+import { Badge } from "./retroui/Badge";
+const { id, data } = Astro.props;
+
+const {
+  title,
+  heroImage,
+  description,
+  tags = [],
+  pubDatetime,
+  modDatetime,
+  timezone,
+} = data;
+---
+
+<Card className="rounded-sm">
+  <Card.Content className="p-0 h-40">
+    <Image src={heroImage} alt={title} class="object-cover h-full w-full" />
+  </Card.Content>
+
+  <Card.Content>
+    <Card.Header className="p-0">
+      <Card.Title>
+        <Text
+          as="a"
+          href={getRelativeLocalePath(Astro.currentLocale, `/posts/${id}/`)}
+          >{title}</Text
+        >
+      </Card.Title>
+    </Card.Header>
+    <Card.Description className="line-clamp-3">
+      {description}
+    </Card.Description>
+    <Card.Content className="px-0 space-x-4 flex flex-wrap">
+      {tags?.map((tag) => (
+              <Badge
+                key={tag}
+                size="sm"
+                variant="surface"
+                className={`bg-${
+                  ["red", "green", "blue", "yellow", "purple", "pink"][
+                    tags.indexOf(tag) % 6
+                  ]
+                }-300 mb-2`}
+              >
+                {tag}
+              </Badge>
+            ))}
+    </Card.Content>
+    <Card.Content className="p-0 space-x-4">
+      <Datetime
+        pubDatetime={pubDatetime}
+        modDatetime={modDatetime}
+        timezone={timezone}
+      />
+    </Card.Content>
+  </Card.Content>
+</Card>

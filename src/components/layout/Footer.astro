@@ -1,0 +1,15 @@
+---
+import { getLocaleInfo, translateFor } from "@/i18n/utils"
+
+const t = translateFor(Astro.currentLocale)
+
+const LOCALE = getLocaleInfo(Astro.currentLocale);
+
+const currentYear = new Date().toLocaleDateString(LOCALE.langTag, {
+  year: "numeric",
+});
+---
+
+<footer class="py-8 flex justify-center border-t-2">
+    <p>{t("site.footer.Copyright", {year: currentYear})}</p>
+</footer>

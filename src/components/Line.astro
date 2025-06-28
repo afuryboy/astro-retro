@@ -1,0 +1,16 @@
+---
+const {class: className} = Astro.props
+---
+
+
+
+
+<div class:list={["w-full", "line", className]}></div>
+
+
+<style>
+    .line {
+    height: 2px;
+    background-color: var(--foreground);
+}
+</style>

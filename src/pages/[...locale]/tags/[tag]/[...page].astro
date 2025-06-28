@@ -1,0 +1,58 @@
+---
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+import Pagination from "@/components/Pagination.astro";
+import PostCard from "@/components/PostCard.astro";
+import { SITE } from "@/config/site.config";
+import { DEFAULT_LOCALE, SUPPORT_LOCALES } from "@/i18n/config";
+import { translateFor } from "@/i18n/utils";
+import getPostsByTag from "@/lib/getPostsByTag";
+import getUniqueTags from "@/lib/getUniqueTags";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Line from "@/components/Line.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import { Text } from "@/components/retroui/Text";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection("blog");
+  
+  return SUPPORT_LOCALES.flatMap((localeKey) => {
+    const tags = getUniqueTags(posts);
+    return tags.flatMap(({ tag, tagName }) => {
+      const tagPosts = getPostsByTag(posts, tag);
+
+      return paginate(tagPosts, {
+        params: {
+          tag,
+          locale: localeKey === DEFAULT_LOCALE ? undefined : localeKey,
+        },
+        props: { tagName },
+        pageSize: SITE.postPerPage,
+      });
+    });
+  });
+}) satisfies GetStaticPaths;
+
+const { page, tagName } = Astro.props;
+
+const t = translateFor(Astro.currentLocale);
+
+---
+
+<PrimaryLayout>
+  <section class="container max-w-6xl mx-auto px-4 lg:px-0">
+    <!-- <Breadcrumb /> -->
+    <div class="flex justify-center items-center py-8">
+      <Text as="h2">{tagName}</Text>
+    </div>
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+      {
+        page.data.map((post) => (
+          <PostCard id={post.id} data={post.data} />
+        ))
+      }
+    </div>
+    <!-- <Line class="my-4" /> -->
+    <Pagination {page} />
+  </section>
+</PrimaryLayout>

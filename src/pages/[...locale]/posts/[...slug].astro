@@ -1,0 +1,30 @@
+---
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+import { DEFAULT_LOCALE, SUPPORT_LOCALES } from "@/i18n/config";
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import { getCollection } from "astro:content";
+import Post from "@/layout/Post.astro";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blog");
+  const paths = SUPPORT_LOCALES.flatMap((locale) => {
+    const postResult = posts.map((post) => ({
+      params: {
+        locale: locale === DEFAULT_LOCALE ? undefined : locale,
+        slug: post.id,
+      },
+      props: { post },
+    }));
+
+    return postResult;
+  });
+  return paths;
+}) satisfies GetStaticPaths;
+const { post } = Astro.props;
+
+---
+
+<PrimaryLayout>
+  <Post value={post} />
+</PrimaryLayout>

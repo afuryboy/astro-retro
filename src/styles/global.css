@@ -1,0 +1,228 @@
+/* styles.css */
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-head: 'Archivo Black', sans-serif;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --shadow-xs: 1px 1px 0 0 var(--border);
+  --shadow-sm: 2px 2px 0 0 var(--border);
+  --shadow: 3px 3px 0 0 var(--border);
+  --shadow-md: 4px 4px 0 0 var(--border);
+  --shadow-lg: 6px 6px 0 0 var(--border);
+  --shadow-xl: 10px 10px 0 1px var(--border);
+  --shadow-2xl: 16px 16px 0 1px var(--border);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+
+  --color-neo-pink: var(--neo-pink);
+  --color-neo-blue: var(--neo-blue);
+  --color-neo-yellow: var(--neo-yellow);
+  --color-neo-green: var(--neo-green);
+  --color-neo-purple: var(--neo-purple);
+}
+
+:root {
+  --background: #fff;
+  --foreground: #000;
+  --card: #fff;
+  --card-foreground: #000;
+
+  --primary: #b6ff9c;
+  --primary-hover: #96ff70;
+  /* --primary: #6fffe9;
+  --primary-hover: #00f5d0; */
+  /* --primary: #ffdb33; */
+  /* --primary-hover: #ffcc00; */
+  --primary-foreground: #000;
+  --secondary: #000;
+  --secondary-foreground: #fff;
+  --muted: #aeaeae;
+  --muted-foreground: #5a5a5a;
+  --accent: #fae583;
+  --accent-foreground: #000;
+  --destructive: #e63946;
+  --destructive-foreground: #fff;
+  --border: #000;
+
+  --neo-pink: #ffcaf2;
+  --neo-blue: #a5d7e8;
+  --neo-yellow: #fdff8f;
+  --neo-green: #b6ff9c;
+  --neo-purple: #d8b4fe;
+  --neo-black: #000;
+  --neo-white: #fff;
+  --neo-gray: #f0f0f0;
+
+  --color-red-300: oklch(0.808 0.114 19.571);
+  --color-red-500: oklch(0.637 0.237 25.331);
+  --color-red-600: oklch(0.577 0.245 27.325);
+  --color-red-800: oklch(0.444 0.177 26.899);
+  --color-yellow-300: oklch(0.905 0.182 98.111);
+  --color-yellow-800: oklch(0.476 0.114 61.907);
+  --color-green-300: oklch(0.871 0.15 154.449);
+  --color-green-400: oklch(0.792 0.209 151.711);
+  --color-green-800: oklch(0.448 0.119 151.328);
+  --color-blue-300: oklch(0.809 0.105 251.813);
+  --color-blue-800: oklch(0.424 0.199 265.638);
+  --color-purple-300: oklch(0.827 0.119 306.383);
+  --color-gray-200: oklch(0.928 0.006 264.531);
+  --color-gray-300: oklch(0.872 0.01 258.338);
+  --color-gray-400: oklch(0.707 0.022 261.325);
+  --color-gray-500: oklch(0.551 0.027 264.364);
+  --color-gray-700: oklch(0.373 0.034 259.733);
+  --color-gray-800: oklch(0.278 0.033 256.848);
+  --color-gray-900: oklch(0.21 0.034 264.665);
+  --color-zinc-600: oklch(0.442 0.017 285.786);
+}
+
+.dark {
+  --background: #1a1a1a;
+  --foreground: #f5f5f5;
+  --card: #242424;
+  --card-foreground: #f5f5f5;
+  --primary: #b6ff9c;
+  --primary-hover: #96ff70;
+  /* --primary: #6fffe9;
+  --primary-hover: #00f5d0; */
+  /* --primary: #ffdb33;
+  --primary-hover: #ffcc00; */
+  --primary-foreground: #000;
+  --secondary: #3a3a3a;
+  --secondary-foreground: #f5f5f5;
+  --muted: #3f3f46;
+  --muted-foreground: #a0a0a0;
+  --accent: #fae583;
+  --accent-foreground: #000;
+  --destructive: #e63946;
+  --destructive-foreground: #fff;
+  --border: #3a3a3a;
+
+  --neo-pink: #1a1a1a;
+  --neo-blue: #1a1a1a;
+  --neo-yellow: #1a1a1a;
+  --neo-green: #1a1a1a;
+  --neo-purple: #1a1a1a;
+  --neo-black: #1a1a1a;
+  --neo-white: #1a1a1a;
+  --neo-gray: #1a1a1a;
+}
+
+/* .astro-code {
+  padding: calc(var(--spacing) * 4);
+  @apply rounded-md overflow-x-auto flex;
+} */
+
+
+.bg-red-300 {
+  background-color: var(--color-red-300);
+}
+
+.bg-red-500 {
+  background-color: var(--color-red-500);
+}
+
+.bg-red-600 {
+  background-color: var(--color-red-600);
+}
+
+.bg-red-800 {
+  background-color: var(--color-red-600);
+}
+
+.bg-yellow-300 {
+  background-color: var(--color-yellow-300);
+}
+
+.bg-yellow-800 {
+  background-color: var(--color-yellow-800);
+}
+
+
+.bg-green-300 {
+  background-color: var(--color-green-300);
+}
+
+.bg-green-400 {
+  background-color: var(--color-green-400);
+}
+.bg-green-800 {
+  background-color: var(--color-green-800);
+}
+
+.bg-blue-300 {
+  background-color: var(--color-blue-300);
+}
+
+.bg-blue-800 {
+  background-color: var(--color-blue-800);
+}
+
+.bg-purple-300 {
+  background-color: var(--color-purple-300);
+}
+
+.bg-pink-300 {
+  background-color: var(--color-pink-300);
+}
+
+
+.bg-gray-200 {
+  background-color: var(--color-gray-200);
+}
+
+.bg-gray-300 {
+  background-color: var(--color-gray-300);
+}
+
+.bg-gray-400 {
+  background-color: var(--color-gray-300);
+}
+
+.bg-gray-500 {
+  background-color: var(--color-gray-300);
+}
+
+.bg-gray-700 {
+  background-color: var(--color-gray-300);
+}
+
+.bg-gray-800 {
+  background-color: var(--color-gray-300);
+}
+
+.bg-gray-900 {
+  background-color: var(--color-gray-300);
+}
+  
+.bg-zinc-600 {
+  background-color: var(--color-zinc-600);
+}
+
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  width: 100%;
+}

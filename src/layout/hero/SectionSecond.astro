@@ -1,0 +1,120 @@
+---
+import { Card } from "@/components/retroui/Card";
+import { Progress } from "@/components/retroui/Progress";
+import { Text } from "@/components/retroui/Text";
+import { TooltipWrapper } from "@/components/retroui/TooltipWrapper";
+import { skillCompositions, skillList, skills } from "@/config/self.config";
+import { translateFor } from "@/i18n/utils";
+import { cn } from "@/lib/utils";
+const t = translateFor(Astro.currentLocale)
+---
+
+<section class="bg-neo-pink w-full py-12 md:py-24 lg:py-32">
+  <div class="container lg:max-w-6xl mx-auto px-4 lg:px-0">
+    <div class="mb-16 text-center">
+      <Text as="h2" className="mb-2"
+        >{t("home.skill.title")}</span
+        ></Text
+      >
+      <Text className="text-lg text-muted-foreground max-w-2xl mx-auto"
+        >{t("home.skill.subtitle")}</Text
+      >
+    </div>
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div
+        class="inline-block border-2 transition-all hover:shadow-none col-span-1 lg:col-span-3 w-full shadow-none bg-card"
+      >
+        <div class="flex p-4 flex-row items-center justify-between mb-6">
+          <Text as="h3">{t("home.skill.topSkill")}</Text>
+        </div>
+        <div class="p-4 space-y-6">
+          {
+            skillList.map((skill) => (
+              <div>
+                <div class="flex justify-between items-center mb-2">
+                  <p class="font-sans text-lg font-medium">{skill.name}</p>
+                  <span
+                    class={cn(
+                      "font-semibold outline-2 text-black px-2.5 py-1.5 text-sm",
+                      `bg-${
+                        ["red", "green", "blue", "yellow", "purple", "pink"][
+                          skills.indexOf(skill.name) % 6
+                        ]
+                      }-300`
+                    )}
+                  >
+                    {skill.experienceLevel == 1 ? t('Master') :  skill.experienceLevel == 2 ? t('Advanced') : t('Familiar') }
+                  </span>
+                </div>
+                <div class="w-full bg-gray-200 border-2 border-black h-4">
+                  <div
+                    class={cn(
+                      "border-r-2 border-black h-full",
+                      `bg-${
+                        ["red", "green", "blue", "yellow", "purple", "pink"][
+                          skills.indexOf(skill.name) % 6
+                        ]
+                      }-300`
+                    )}
+                    style={{ width: skill.experienceRate + "%" }}
+                  />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div
+        class="inline-block border-2 cursor-pointer transition-all hover:shadow-none col-span-1 lg:col-span-2 w-full shadow-none bg-card"
+      >
+        <div class="flex flex-col justify-start p-4">
+          <Text as="h3">{t("home.skill.topSkillSet")}</Text>
+        </div>
+        <div class="p-4">
+          <ul class="space-y-4">
+            {
+              skillCompositions.map((skill, idx) => (
+                <li class="flex justify-between items-center pb-3  border-b-2">
+                  <>
+                    <div class="flex items-center">
+                      <span
+                        class={cn(
+                          "flex justify-center items-center border-2 w-6 h-6",
+                          `bg-${
+                            [
+                              "red",
+                              "green",
+                              "blue",
+                              "yellow",
+                              "purple",
+                              "pink",
+                            ][idx % 6]
+                          }-300`
+                        )}
+                      >
+                        {idx + 1}
+                      </span>
+                      <Text className="ml-2">{skill.name}</Text>
+                    </div>
+                    <span class={cn("font-semibold px-2 py-1 text-xs", `bg-${
+                            [
+                              "red",
+                              "green",
+                              "blue",
+                              "yellow",
+                              "purple",
+                              "pink",
+                            ][idx % 6]
+                          }-300`)}>
+                      {skill.experienceLevel == 1 ? t('Master') :  skill.experienceLevel == 2 ? t('Advanced') : t('Familiar') }
+                    </span>
+                  </>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

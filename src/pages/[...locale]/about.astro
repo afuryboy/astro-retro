@@ -1,0 +1,115 @@
+---
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+import { Text } from "@/components/retroui/Text";
+import { Badge } from "@/components/retroui/Badge";
+import { DEFAULT_LOCALE, SUPPORT_LOCALES } from "@/i18n/config";
+import { Image } from "astro:assets";
+import { activityList, skills } from "@/config/self.config";
+import Avatar from "@/assets/images/avatar.png";
+import { Button } from "@/components/retroui/Button";
+import { translateFor } from "@/i18n/utils";
+
+export async function getStaticPaths() {
+  return SUPPORT_LOCALES.map((locale) => ({
+    params: { locale: locale === DEFAULT_LOCALE ? undefined : locale },
+  }));
+}
+const t = translateFor(Astro.currentLocale)
+---
+
+<PrimaryLayout>
+  <div class="max-w-6xl mx-auto px-4 pt-4">
+    <div class="border-4 p-8 mb-8">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <div
+          class="relative flex overflow-hidden w-32 h-32 rounded-none border-4"
+        >
+          <Image src={Avatar} alt="avatar" />
+        </div>
+        <div class="flex-1">
+          <Text as="h2">Jiang Bao</Text>
+          <Text className="text-muted-foreground font-medium mb-4"
+            >{t('about.description')}</Text
+          >
+          <div class="flex gap-4 justify-center md:justify-start">
+            <a href="https://github.com/afuryboy" target="_blank" rel="noopener noreferrer"><Button>Follow</Button></a>
+          </div>
+        </div>
+        <div class="flex gap-8">
+          <div class="text-center border-l-2 pl-8 first:border-l-0 first:pl-0">
+            <div class="text-3xl font-black">20+</div>
+            <div class="font-medium">Projects</div>
+          </div>
+          <div class="text-center border-l-2 pl-8 first:border-l-0 first:pl-0">
+            <div class="text-3xl font-black">5</div>
+            <div class="font-medium">Teams</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid gird-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8">
+      <div class="space-y-8">
+        <div class="border-4 p-6">
+          <Text as="h3" className="mb-4">About</Text>
+          <Text className="mb-4"
+            >{t('about.career')}</Text
+          >
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span>👨‍💻</span><span>{t('about.experience')}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span>🌍</span><span>{t('about.location')}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span>🎓</span><span>{t('about.education')}</span>
+            </div>
+          </div>
+        </div>
+        <div class="border-4 p-6">
+          <Text as="h3" className="mb-4">Skills</Text>
+          <div class="flex flex-wrap gap-3">
+            {
+              skills.map((skill) => (
+                <Badge
+                  variant="surface"
+                  className={`bg-${
+                    ["red", "green", "blue", "yellow", "purple", "pink"][
+                      skills.indexOf(skill) % 6
+                    ]
+                  }-300`}
+                >
+                  {skill}
+                </Badge>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+      <div class="md:col-span-2 space-y-8">
+        <div class="border-4">
+          <div class="border-b-4 p-4 bg-neo-green font-bold">
+            Recent Activity
+          </div>
+          <div class="p-6 space-y-6">
+            {
+              activityList.map((act) => (
+                <div class="flex items-start gap-4 border-b-2 border-black/10 last:border-b-0 pb-6 last:pb-0">
+                  <div class="w-10 h-10 border-2 border-black bg-accent flex items-center justify-center font-bold shrink-0">
+                    {act.icon}
+                  </div>
+                  <div>
+                    <div class="font-bold">
+                      {act.content}
+                    </div>
+                    <div class="text-sm text-gray-600">{act.time}</div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</PrimaryLayout>

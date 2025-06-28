@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from "astro";
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+import { DEFAULT_LOCALE, SUPPORT_LOCALES } from "@/i18n/config";
+import Hero from "@/layout/Hero.astro";
+
+export const getStaticPaths = (() =>
+  SUPPORT_LOCALES.map((locale) => {
+    return {
+      params: {
+        locale: locale === DEFAULT_LOCALE ? undefined : locale,
+      },
+    };
+  })) satisfies GetStaticPaths;
+---
+
+<PrimaryLayout>
+  <Hero />
+</PrimaryLayout>

@@ -1,0 +1,50 @@
+---
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { SUPPORT_LOCALES, DEFAULT_LOCALE } from "@/i18n/config";
+import { getRelativeLocalePath, translateFor } from "@/i18n/utils";
+import Pagination from "@/components/Pagination.astro";
+import { SITE } from "@/config/site.config";
+import { Card } from "@/components/retroui/Card";
+import { Text } from "@/components/retroui/Text";
+import { Badge } from "@/components/retroui/Badge";
+import Line from '@/components/Line.astro'
+import Datetime from "@/components/Datetime.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import PostCard from "@/components/PostCard.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const posts = await getCollection("blog");
+
+  const paths = SUPPORT_LOCALES.flatMap((locale) => {
+    return paginate(posts, {
+      params: { locale: locale === DEFAULT_LOCALE ? undefined : locale },
+      pageSize: SITE.postPerPage,
+    });
+  });
+  return paths;
+}
+const t = translateFor(Astro.currentLocale);
+const { page } = Astro.props;
+---
+
+<PrimaryLayout>
+  <section class="container max-w-6xl mx-auto px-4 lg:px-0 mb-5">
+    <!-- <Breadcrumb /> -->
+    <div class="flex justify-center items-center py-8">
+      <Text as="h2">{t("blog.title")}</Text>
+    </div>
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+      {
+        page.data.map((post) => (
+          <PostCard id={post.id} data={post.data} />
+        ))
+      }
+    </div>
+    <!-- <Line class="my-4" /> -->
+    <Pagination {page} class="py-8" />
+  </section>
+</PrimaryLayout>
+
+<script></script>

@@ -1,0 +1,74 @@
+---
+import { Text } from "@/components/retroui/Text";
+import { translateFor } from "@/i18n/utils";
+const t = translateFor(Astro.currentLocale)
+---
+
+<section class="py-24 px-4 lg:px-0 bg-neo-blue relative overflow-hidden">
+  <div
+    class="absolute pointer-events-none top-20 left-10 w-16 h-16 bg-neo-purple border-4 border-black rotate-12"
+  >
+  </div>
+  <div
+    class="absolute pointer-events-none bottom-40 right-20 w-20 h-20 bg-neo-green border-4 border-black rotate-45"
+  >
+  </div>
+  <div
+    class="absolute pointer-events-none bottom-20 left-1/4 w-24 h-24 bg-neo-blue border-4 border-black rounded-full"
+  >
+  </div>
+  <div class="container mx-auto px-4 relative z-1">
+    <div class="text-center animate-fade-up">
+      <Text as="h2" className="mb-2">{t('home.project.title')}</Text>
+      <Text className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('home.project.subtitle')}</Text>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-24 mt-20">
+      <div>
+        <div class="flex-1 flex flex-col items-center text-center animate-fade-up duration-500" style="transition-delay:0.3s">
+          <div class="flex items-center justify-center w-20 h-20 bg-neo-pink border-4 border-black rounded-full font-black text-2xl shadow-neo-sm mb-4">
+            1
+          </div>
+          <h3 class="text-2xl font-black mb-2">{t('home.project.item1.title')}</h3>
+          <Text className="text-sm text-muted-foreground mb-8">{t('home.project.item1.description')}</Text>
+          <div class="relative w-full max-w-xs">
+            <div class="absolute -inset-2 border-4 border-black rotate-2"></div>
+            <div class="relative bg-[#1a1a2e] text-neo-blue border-4 border-black overflow-hidden -rotate-1 h-48 flex items-center justify-center">
+              <!-- <Image src=""  alt="aa" /> -->
+               <img src="/project-okx-fabi.png" class="w-full h-full" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex-1 flex flex-col items-center text-center animate-fade-up duration-500" style="transition-delay:0.3s">
+          <div class="flex items-center justify-center w-20 h-20 bg-neo-pink border-4 border-black rounded-full font-black text-2xl shadow-neo-sm mb-4">
+            2
+          </div>
+          <h3 class="text-2xl font-black mb-2">{t('home.project.item2.title')}</h3>
+          <Text className="text-sm text-muted-foreground mb-8">{t('home.project.item2.description')}</Text>
+          <div class="relative w-full max-w-xs">
+            <div class="absolute -inset-2 border-4 border-black rotate-2"></div>
+            <div class="relative bg-[#1a1a2e] text-neo-blue border-4 border-black overflow-hidden -rotate-1 h-48 flex items-center justify-center">
+              <img src="/project-st-bigscreen.png" class="w-full h-full" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex-1 flex flex-col items-center text-center animate-fade-up duration-500" style="transition-delay:0.3s">
+          <div class="flex items-center justify-center w-20 h-20 bg-neo-pink border-4 border-black rounded-full font-black text-2xl shadow-neo-sm mb-4">
+            3
+          </div>
+          <h3 class="text-2xl font-black mb-2">{t('home.project.item2.title')}</h3>
+          <Text className="text-sm text-muted-foreground mb-8">{t('home.project.item2.description')}</Text>
+          <div class="relative w-full max-w-xs">
+            <div class="absolute -inset-2 border-4 border-black rotate-2"></div>
+            <div class="relative bg-[#1a1a2e] text-neo-blue border-4 border-black overflow-hidden -rotate-1 h-48 flex items-center justify-center">
+              <img src="/project-scene-editor.png" class="w-full h-full" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

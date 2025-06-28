@@ -1,0 +1,134 @@
+---
+import getPostsByTime from "@/lib/getPostsByTime";
+import { getCollection } from "astro:content";
+import { Text } from "@/components/retroui/Text";
+import { Badge } from "@/components/retroui/Badge";
+import Datetime from "@/components/Datetime.astro";
+import { AvatarWrapper } from "@/components/retroui/AvatarWrapper";
+import { Card } from "@/components/retroui/Card";
+import { Button } from "@/components/retroui/Button";
+import { ArrowRight } from "lucide-react";
+import { getRelativeLocalePath, translateFor } from "@/i18n/utils";
+import { Image } from "astro:assets";
+import { cn } from "@/lib/utils";
+
+const posts = await getCollection("blog");
+
+const latestPosts = getPostsByTime(posts, 3);
+
+const featuredArticle = posts.find((post) => post.data.featured);
+const { id } = featuredArticle;
+const {
+  title,
+  description,
+  author,
+  pubDatetime,
+  modDatetime,
+  timezone,
+  heroImage,
+  category
+} = featuredArticle.data;
+const t = translateFor(Astro.currentLocale)
+---
+
+<section class="bg-neo-purple w-full py-12 md:py-24 lg:py-32">
+  <div class="container lg:max-w-6xl mx-auto px-4 lg:px-0">
+  <div class="mb-16 text-center">
+    <Text as="h2" className="mb-2">{t('home.blog.title')}</Text>
+    <Text className="text-lg text-muted-foreground max-w-2xl mx-auto"
+      >{t('home.blog.subtitle')}</Text
+    >
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+    <Card className="lg:col-span-8 border-4 bg-white shadow-lg">
+      <Card.Content className="grid md:grid-cols-2 h-full p-0">
+        <Card.Content
+          className="relative border-b-4 md:border-b-0 md:border-r-3 p-0"
+        >
+          <Image alt="" class="object-cover h-full w-full" src={heroImage} />
+          <Badge
+            variant="outline"
+            className="text-black font-semibold outline-2 bg-primary absolute top-0 left-0"
+            >{t('FEATURED')}</Badge
+          >
+        </Card.Content>
+        <Card.Content
+          className="dark:bg-black p-8 flex flex-col items-start group"
+        >
+          <div class="flex items-center space-x-4 mb-6">
+            {
+                category && <Badge className='border-2 bg-green-300' size="sm">{category}</Badge>
+              }
+            <div class="text-sm flex items-center">
+              <Datetime
+                pubDatetime={pubDatetime}
+                modDatetime={modDatetime}
+                timezone={timezone}
+              />
+            </div>
+          </div>
+          <Text
+            as="h3"
+            className="font-sans font-bold mb-4 group-hover:underline decoration-primary decoration-4 transition-all duration-300 underline-offset-4"
+            >{title}</Text
+          >
+          <Text className="mb-6">{description}</Text>
+          <div class="flex flex-grow items-start justify-baseline">
+            <div class="flex items-center">
+              <span class="flex border-2 rounded-full overflow-hidden relative w-10 h-10 mr-2">
+                <Image alt="" src={author.avatar} />
+              </span>
+              <span class="text-sm font-medium">{author.name}</span>
+            </div>
+          </div>
+          <a class="mt-5" href={getRelativeLocalePath(Astro.currentLocale, `/posts/${id}/`)}>
+            <Button>{t('blog.read')}<ArrowRight className="ml-2" /></Button>
+          </a>
+        </Card.Content>
+      </Card.Content>
+    </Card>
+    <div class="lg:col-span-4 flex flex-col gap-6">
+      {
+        latestPosts.map((post, idx) => (
+          <Card className="dark:bg-black p-6 group shadow-lg hover:translate-x-1 hover:translate-y-1 hover:shadow-md transition-all">
+            <Card.Content className="flex items-center mb-2 space-x-4 p-0">
+              {
+                post.data.category && <Badge className={cn(`bg-${
+                        ["red", "green", "blue", "yellow", "purple", "pink"][
+                         (idx+1) % 6
+                        ]
+                      }-300`, 'border-2')} size="sm">{post.data.category}</Badge>
+              }
+              <div class="text-sm flex items-center">
+                <Datetime
+                  pubDatetime={post.data?.pubDatetime}
+                  modDatetime={post.data?.modDatetime}
+                  timezone={post.data?.timezone}
+                />
+              </div>
+            </Card.Content>
+
+            <a href={getRelativeLocalePath(Astro.currentLocale, `/posts/${post.id}/`)}>
+              <Text
+                as="h4"
+                className="cursor font-sans font-bold mb-4 group-hover:underline decoration-primary decoration-3 transition-all duration-300 underline-offset-2"
+              >
+                {post.data?.title}
+              </Text>
+            </a>
+            <Card.Content className="flex items-center p-0">
+              <span class="flex border-2 rounded-full overflow-hidden relative w-10 h-10 mr-2">
+                <Image alt="" src={post.data?.author?.avatar} />
+              </span>
+              <span class="text-sm font-medium">{post.data?.author?.name}</span>
+            </Card.Content>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+  <a href={getRelativeLocalePath(Astro.currentLocale, `/posts`)} class="flex justify-center mb-6">
+    <Button>{t('blog.readMore')}<ArrowRight className="ml-2" /></Button>
+  </a>
+  </div>
+</section>

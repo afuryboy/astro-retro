@@ -1,0 +1,66 @@
+---
+import { navConfig, SITE } from "@/config/site.config";
+import { Text } from "../retroui/Text";
+import { Image } from "astro:assets";
+import { getRelativeLocalePath, stripBaseAndLocale, translateFor } from "@/i18n/utils";
+import ThemeButton from "../ThemeButton";
+import I18nButton from "../I18nButton";
+import HamburgerMenu from "../HamburgerMenu";
+const unLocalizedPathname = stripBaseAndLocale(
+  Astro.currentLocale,
+  Astro.url.pathname
+);
+
+const url = Astro.url.pathname;
+const locale = Astro.currentLocale;
+
+const t = translateFor(Astro.currentLocale)
+---
+
+<nav class="sticky top-0 w-full border-b-2 bg-background z-50">
+  <div class="container max-w-6xl px-3 mx-auto">
+    <div class="flex justify-between items-center h-16">
+      {/* Logo Section */}
+      <div class="shrink-0">
+        <a
+          href={getRelativeLocalePath(Astro.currentLocale, "/")}
+          class="text-2xl flex items-center"
+        >
+          <Image
+            src="/logo.png"
+            alt="retro ui logo"
+            class="mr-2"
+            height={30}
+            width={30}
+          />
+          <h1><Text as="h1" className="text-md lg:text-xl">{SITE.name}</Text></h1>
+        </a>
+      </div>
+      {/* Navigation Links */}
+      <div class="hidden md:flex space-x-6">
+        {
+          navConfig.topNavItems.map((item) => (
+            <a
+              href={getRelativeLocalePath(Astro.currentLocale, item.href)}
+              class="hover:underline decoration-primary underline-offset-2 transition-all"
+            >
+              {t(`${item.key}`)}
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="flex">
+        {/* i18n button and dark model button */}
+        <div class="flex items-center space-x-3">
+          <I18nButton url={url} locale={locale} client:load className="hidden md:flex" />
+          <ThemeButton client:load className="ml-2.5" />
+        </div>
+        {/* mobile menu */}
+        <div class="flex items-center space-x-4 md:hidden ml-2.5">
+          <HamburgerMenu client:load url={unLocalizedPathname} locale={locale} />
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
