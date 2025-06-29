@@ -5,9 +5,7 @@ import react from "@astrojs/react";
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from "@tailwindcss/vite";
 import { DEFAULT_LOCALE, SUPPORT_LOCALES, LOCALES_TO_LANG } from "./src/i18n/config";
-console.log(DEFAULT_LOCALE);
-console.log(SUPPORT_LOCALES);
-console.log(LOCALES_TO_LANG);
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.afruyboy.site/",
