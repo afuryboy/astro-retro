@@ -18,6 +18,7 @@ export default function HamburgerMenu({url, locale}) {
         variant="outline"
         className="p-2"
         onClick={setMenuOpen}
+        aria-label="sidebar button"
       >
         {isOpen ? (
           <X className="h-4 w-4" />

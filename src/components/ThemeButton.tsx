@@ -31,7 +31,7 @@ export default function ThemeButton({className} : HTMLAttributes<HTMLPreElement>
 
   return (
     <>
-      <Button className={cn("rounded-md", className)} onClick={toggleDarkMode}>{isDarkMode ? <Sun size="16" /> : <Moon size="16" />}</Button>
+      <Button aria-label="theme button" className={cn("rounded-md", className)} onClick={toggleDarkMode}>{isDarkMode ? <Sun size="16" /> : <Moon size="16" />}</Button>
     </>
   );
 }
