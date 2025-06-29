@@ -38,6 +38,7 @@
   --color-neo-yellow: var(--neo-yellow);
   --color-neo-green: var(--neo-green);
   --color-neo-purple: var(--neo-purple);
+  --color-neo-lightGreen: var(--neo-lightGreen)
 }
 
 :root {
@@ -71,6 +72,7 @@
   --neo-black: #000;
   --neo-white: #fff;
   --neo-gray: #f0f0f0;
+  --neo-lightGreen: #3df2cb;
 
   --color-red-300: oklch(0.808 0.114 19.571);
   --color-red-500: oklch(0.637 0.237 25.331);
@@ -124,6 +126,7 @@
   --neo-black: #1a1a1a;
   --neo-white: #1a1a1a;
   --neo-gray: #1a1a1a;
+  --neo-lightGreen: #1a1a1a;
 }
 
 /* .astro-code {
