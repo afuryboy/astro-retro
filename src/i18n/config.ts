@@ -36,3 +36,12 @@ export const DEFAULT_LOCALE =
     (locale) => (localeToProfile[locale] as LocaleProfile).default === true
   ) ?? SUPPORT_LOCALES[0];
 
+export const LOCALES_TO_LANG = Object.fromEntries(
+  // For Sitemap
+  Object.entries(localeToProfile).map(([locale, profile]) => [
+    locale,
+    profile.langTag,
+  ])
+) as Record<keyof typeof localeToProfile, string>;
+
+
