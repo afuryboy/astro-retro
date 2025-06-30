@@ -22,7 +22,7 @@ export default function I18nButton({ url, locale, className = '' }) {
   return (
     <div className={className}>
       <Select value={localeVal} onValueChange={selectHandle}>
-        <Select.Trigger className="rounded-md px-2 py-0.5">
+        <Select.Trigger className="rounded-md px-2 py-0.5" aria-label="language switch button">
           {/* <Select.Icon className="SelectIcon">
             <Languages size="18" />
           </Select.Icon> */}
