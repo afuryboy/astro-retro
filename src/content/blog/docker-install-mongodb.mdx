@@ -1,0 +1,46 @@
+---
+title: 'docker安装mongodb'
+description: '使用docker快速安装社区版本mongodb'
+heroImage: './images/docker-install-mongodb/docker-mongodb.webp'
+tags: ['docker', 'mongodb']
+pubDatetime: 2025-06-30T05:53:09.789Z
+author:
+  name: "JiangBao"
+  description: "这家伙很懒，什么也没留下"
+  avatar: "./images/avatar.webp"
+---
+
+import { Image } from 'astro:assets';
+import dockerMongodb from './images/docker-install-mongodb/docker-mongodb.webp'
+
+
+<Image src={dockerMongodb} alt="docker-mongodb" class="border-4 w-full" />
+
+命令行中使用`docker pull` 拉取目标镜像
+
+```zsh
+docker pull mongodb/mongodb-community-server:latest
+```
+
+安装成功后
+
+命令行中使用`docker images` 查看已经安装成功的镜像，这个时候你的镜像列表里会多出mongodb的镜像
+
+```zsh
+docker images
+```
+
+同时如果你安装有`docker desktop`去查看，也会看到最新安装的镜像
+
+
+运行`mongodb`同时配置映射端口
+```zsh
+docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest
+```
+`docker`里的`mongodb`就会运行起来，同时映射本机端口`27017`
+
+这里我安装的是社区版本，连接不需要用户密码，在代码里连接`mongodb`如下格式
+
+```zsh
+mongodb://localhost:27017/database
+```
