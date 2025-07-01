@@ -1,0 +1,32 @@
+---
+import { getLocaleInfo, translateFor } from "@/i18n/utils";
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+import { Text } from "@/components/retroui/Text";
+
+
+
+const t = translateFor(Astro.currentLocale);
+
+const LOCALE = getLocaleInfo(Astro.currentLocale);
+
+const local404 = (404).toLocaleString(LOCALE.langTag);
+
+const title = `${local404} ${t("notFound")} | ${t("site.name")}`;
+---
+
+
+
+
+
+
+
+
+
+<PrimaryLayout title={title}>
+  <section class="container lg:max-w-4xl mx-auto my-8 px-4 lg:px-0">
+    <div class="flex flex-col justify-center items-center">
+        <h1 class="text-9xl font-bold">{local404}</h1>
+        <Text className="mt-2">{t("notFound")}</Text>
+    </div>
+  </section>
+</PrimaryLayout>

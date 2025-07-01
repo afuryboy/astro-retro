@@ -6,6 +6,7 @@ export interface I18nStrings {
   "site.nav.tags": string;
   "site.nav.about": string;
   "site.footer.Copyright": string;
+  "notFound": string;
 
   "date.published": string;
   "date.updated": string;

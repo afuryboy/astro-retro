@@ -8,6 +8,8 @@ const siteLocales = {
   "site.nav.tags": "标签",
   "site.nav.about": "关于",
   "site.footer.Copyright": "版权所有 © {year} | 保留所有权利",
+
+  "notFound": "未找到",
 };
 
 const constantLocales = {

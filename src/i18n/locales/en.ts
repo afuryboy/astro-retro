@@ -7,6 +7,8 @@ const siteLocales = {
   "site.nav.tags": "Tags",
   "site.nav.about": "About",
   "site.footer.Copyright": "Copyright © {year} | All rights reserved",
+
+   "notFound": "Not Found",
 };
 const constantLocales = {
   'Master': 'Master',
