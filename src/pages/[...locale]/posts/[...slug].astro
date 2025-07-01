@@ -5,6 +5,7 @@ import type { GetStaticPaths } from "astro";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
 import Post from "@/layout/Post.astro";
+import { translateFor } from "@/i18n/utils";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog");
@@ -21,10 +22,21 @@ export const getStaticPaths = (async () => {
   });
   return paths;
 }) satisfies GetStaticPaths;
+const t = translateFor(Astro.currentLocale);
 const { post } = Astro.props;
 
+const {
+  title,
+  description,
+  heroImage,
+} = post.data
+const SEOMeta = {
+  title: `${title} | ${t("site.name")}`,
+  description,
+  heroImage,
+}
 ---
 
-<PrimaryLayout>
+<PrimaryLayout {...SEOMeta}>
   <Post value={post} />
 </PrimaryLayout>

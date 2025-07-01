@@ -45,7 +45,7 @@ const ENLocales: I18nStrings = {
   "home.project.item3.description": "Atomization of robot task customization",
   // blog section
   "blog.title": "Blog",
-  "blog.subtitle": "记录自己的前端技术文章",
+  "blog.subtitle": "Record my web technology articles",
   "blog.read": "Read Article",
   "blog.readMore": "Read More Article",
   // tag section

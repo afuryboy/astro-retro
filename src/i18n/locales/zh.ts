@@ -36,7 +36,7 @@ const ZHLocales: I18nStrings = {
   "home.skill.topSkill": "Top5 技能",
   "home.skill.topSkillSet": "Top5 技能组合",
   "home.blog.title": "最新博客",
-  "home.blog.subtitle": "记录自己的前端技术文章",
+  "home.blog.subtitle": "记录我的前端技术文章",
   "home.project.title": "做过的项目",
   "home.project.subtitle": "曾经开发过项目，仅用于个人技术展示使用",
   "home.project.item1.title": "欧易法币项目",

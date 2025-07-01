@@ -9,28 +9,32 @@ import Footer from "@/components/layout/Footer.astro";
 import BackToTopButton from "@/components/BackToTop";
 
 const LOCALE = getLocaleInfo(Astro.currentLocale);
-const t = translateFor(Astro.currentLocale)
-const SEOMeta = {
-  name: t('site.name'),
-  description: t('site.description'),
-  image: {
+const t = translateFor(Astro.currentLocale);
+
+const {
+  title = t("site.name"),
+  description = t("site.description"),
+  heroImage = {
     src: new URL("/og.webp", Astro.site).href,
-    alt: t('site.name'),
+    alt: t("site.name"),
   },
+} = Astro.props;
+
+const SEOMeta = {
+  title,
+  name: title,
+  description,
+  image: heroImage,
 };
-const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html
-  lang=`${Astro.currentLocale ?? DEFAULT_LOCALE}`
-  dir={LOCALE.direction}
->
+<html lang=`${Astro.currentLocale ?? DEFAULT_LOCALE}` dir={LOCALE.direction}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <SEO {...SEOMeta} title={title} />
+    <SEO {...SEOMeta} />
     <ClientRouter />
   </head>
   <body class="bg-background text-foreground flex flex-col">

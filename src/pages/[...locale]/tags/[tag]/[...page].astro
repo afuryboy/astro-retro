@@ -39,7 +39,7 @@ const t = translateFor(Astro.currentLocale);
 
 ---
 
-<PrimaryLayout>
+<PrimaryLayout title={`${tagName} | ${t('site.nav.tags')} | ${t('site.name')}`} description={`${tagName} | ${t('tag.title')}`}>
   <section class="container max-w-6xl mx-auto px-4 lg:px-0">
     <!-- <Breadcrumb /> -->
     <div class="flex justify-center items-center py-8">

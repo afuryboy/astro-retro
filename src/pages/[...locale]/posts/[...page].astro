@@ -27,13 +27,16 @@ export async function getStaticPaths({ paginate }) {
 }
 const t = translateFor(Astro.currentLocale);
 const { page } = Astro.props;
+
+
 ---
 
-<PrimaryLayout>
+<PrimaryLayout title={`${t('site.nav.posts')} | ${t('site.name')}`} description={t('blog.subtitle')}>
   <section class="container max-w-6xl mx-auto px-4 lg:px-0 mb-5">
     <!-- <Breadcrumb /> -->
-    <div class="flex justify-center items-center py-8">
+    <div class="flex flex-col justify-center items-center py-8">
       <Text as="h2">{t("blog.title")}</Text>
+      <Text className="mt-2">{t("blog.subtitle")}</Text>
     </div>
     <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
       {

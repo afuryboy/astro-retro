@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 const t = translateFor(Astro.currentLocale)
 ---
 
-<PrimaryLayout>
+<PrimaryLayout title={`${t('site.nav.about')} | ${t('site.name')}`} description={t('about.description')}>
   <div class="max-w-6xl mx-auto px-4 pt-4">
     <div class="border-4 p-8 mb-8">
       <div class="flex flex-col md:flex-row items-center gap-8">
