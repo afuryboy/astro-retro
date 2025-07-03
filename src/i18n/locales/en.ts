@@ -6,6 +6,7 @@ const siteLocales = {
   "site.nav.posts": "Posts",
   "site.nav.tags": "Tags",
   "site.nav.about": "About",
+  "site.nav.contact": "Contact",
   "site.footer.Copyright": "Copyright © {year} | All rights reserved",
 
    "notFound": "Not Found",

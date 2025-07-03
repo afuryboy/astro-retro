@@ -7,6 +7,7 @@ const siteLocales = {
   "site.nav.posts": "文章",
   "site.nav.tags": "标签",
   "site.nav.about": "关于",
+  "site.nav.contact": "联系",
   "site.footer.Copyright": "版权所有 © {year} | 保留所有权利",
 
   "notFound": "未找到",

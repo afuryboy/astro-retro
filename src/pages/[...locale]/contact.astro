@@ -1,0 +1,33 @@
+---
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+import { Text } from "@/components/retroui/Text";
+import { DEFAULT_LOCALE, SUPPORT_LOCALES } from "@/i18n/config";
+import ContactForm from '@/components/ContactForm'
+import { translateFor } from "@/i18n/utils";
+import { Mail } from "lucide-react";
+
+export async function getStaticPaths() {
+  return SUPPORT_LOCALES.map((locale) => ({
+    params: { locale: locale === DEFAULT_LOCALE ? undefined : locale },
+  }));
+}
+const t = translateFor(Astro.currentLocale);
+---
+
+<PrimaryLayout
+  title={`${t("site.nav.about")} | ${t("site.name")}`}
+  description={t("about.description")}
+>
+  <div class="container max-w-md w-full mx-auto py-24">
+    <div class="border-2 rounded-lg border-black bg-white p-8 relative">
+      <div class="absolute -top-6 -left-6 bg-primary border-2 border-black rounded-full w-16 h-16 flex items-center justify-center transform -rotate-12">
+        <Mail />
+      </div>
+      <div class="text-center mb-8">
+        <Text as="h2">Send a Message</Text>
+        <Text>Welcome to send email to learn more about RetroBlog</Text>
+      </div>
+      <ContactForm client:load />
+    </div>
+  </div>
+</PrimaryLayout>

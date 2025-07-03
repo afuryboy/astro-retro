@@ -14,5 +14,6 @@ export const navConfig = {
     { title: "Posts", key: "site.nav.posts", href: "/posts" },
     { title: "Tags", key: "site.nav.tags", href: "/tags" },
     { title: "About", key: "site.nav.about", href: "/about" },
+    { title: "Contact", key: "site.nav.contact", href: "/contact" },
   ],
 }

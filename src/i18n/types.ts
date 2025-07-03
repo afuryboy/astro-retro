@@ -5,6 +5,7 @@ export interface I18nStrings {
   "site.nav.posts": string;
   "site.nav.tags": string;
   "site.nav.about": string;
+  "site.nav.contact": string;
   "site.footer.Copyright": string;
   "notFound": string;
 
