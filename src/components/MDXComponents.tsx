@@ -64,6 +64,13 @@ export const li = (props: HTMLAttributes<HTMLHeadElement>) => (
     className="text-lg text-zinc-600 ml-4 lg:ml-8 mb-2"
   />
 );
+
+export const ul = (props: HTMLAttributes<HTMLHeadElement>) => (
+  <ul className="list-disc flex flex-col gap-2 ml-4 mt-2 [&>li>strong]:text-foreground [&>li>strong]:font-medium">
+    {props.children}
+  </ul>
+);
+
 export const img = (props: HTMLAttributes<HTMLImageElement>) => (
   <img className="mx-auto w-full max-w-[600px] my-8" {...props} />
 );
@@ -80,4 +87,6 @@ export const components = {
   // pre,
   image,
   p,
+  li,
+  ul
 };

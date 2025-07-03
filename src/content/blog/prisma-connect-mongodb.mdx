@@ -1,0 +1,221 @@
+---
+title: 'prisma connect mongodb'
+description: '使用prisma连接mongodb出现的事务问题'
+heroImage: './images/prisma-connect-mongodb/prisma-mongo.webp'
+tags: ['docker', 'mongodb']
+pubDatetime: 2025-07-02T14:09:43.741Z
+author:
+  name: "author.name"
+  description: "author.description"
+  avatar: "./images/avatar.webp"
+---
+
+import { Image } from 'astro:assets';
+import prismaMongodb from './images/prisma-connect-mongodb/prisma-mongo.webp'
+
+
+<Image src={prismaMongodb} alt="prisma-mongodb" class="w-full border-4 aspect-16/9 object-cover" />
+
+
+## 问题起因
+
+我在`nodejs`里使用prisma去创建`mongodb`数据，如下代码：
+
+```typescript
+prisma.user.create({
+    data: {
+      name: 'Rich',
+      email: 'hello@prisma.com',
+      posts: {
+        create: {
+          title: 'My first post',
+          body: 'Lots of really interesting stuff',
+          slug: 'my-first-post',
+        },
+      },
+    },
+  })
+```
+出现如下报错:
+
+```zsh
+Prisma needs to perform transactions, which requires your MongoDB server to be run as a replica set 
+```
+
+这段代码 prisma.user.create(...) 默认不会自动启用事务，但根据操作的性质，Prisma 会在某些情况下 `隐式使用事务`。
+
+## 默认情况下的事务行为
+
+- 单模型操作（如单独创建 User）：
+    不会启用事务，即使操作中包含嵌套写入（如你的代码中同时创建 User 和 Post）。
+
+- 嵌套写入（Nested Writes）：
+    Prisma 会将嵌套操作（如你的 posts.create）包装在 隐式事务 中，但前提是：
+    - 数据库支持事务（如 PostgreSQL、MySQL 的 InnoDB）。
+    - 对于 MongoDB：必须配置为副本集（Replica Set），否则嵌套写入会失败并报错（你之前遇到的 Prisma needs transactions 错误）。
+
+
+所以要解决报错问题，我们必须对mongodb配置副本集后启动。
+
+
+## 初始化副本集
+
+```zsh
+docker exec -it mongodb mongosh --eval "
+  rs.initiate({
+    _id: 'rs0',
+    members: [{
+      _id: 0,
+      host: 'mongodb:27017' # 必须使用容器名称作为host
+    }]
+  })"
+
+```
+执行完后出现报错：
+```zsh
+MongoServerError: No host described in new configuration with {version: 1, term: 0} for replica set rs0 maps to this node
+```
+表明 MongoDB 副本集配置中的 host 地址与当前节点不匹配。以下是详细解决方案：
+
+### 使用正确host启动容器
+
+```zsh
+
+docker run -d --name mongodb --hostname mongodb -p 27017:27017 -v ~/Desktop/personal-space/docker-space/mongo_data:/data/db mongodb/mongodb-community-server:latest --replSet rs0  --bind_ip_all
+```
+
+重新执行
+
+```zsh
+
+docker exec -it mongodb mongosh --eval "
+  rs.initiate({
+    _id: 'rs0',
+    version: 1,
+    members: [{
+      _id: 0,
+      host: 'mongodb:27017'                  
+    }]
+  })"
+{
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1751462838, i: 1 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1751462838, i: 1 })
+}
+
+```
+这个时候会多出初始化成功的信息
+
+
+再用以下命令查看mongodb具体信息
+
+```zsh
+
+docker exec -it mongodb mongosh --eval "rs.status()"
+{
+  set: 'rs0',
+  date: ISODate('2025-07-02T13:37:31.809Z'),
+  myState: 1,
+  term: Long('1'),
+  syncSourceHost: '',
+  syncSourceId: -1,
+  heartbeatIntervalMillis: Long('2000'),
+  majorityVoteCount: 1,
+  writeMajorityCount: 1,
+  votingMembersCount: 1,
+  writableVotingMembersCount: 1,
+  optimes: {
+    lastCommittedOpTime: { ts: Timestamp({ t: 1751463448, i: 1 }), t: Long('1') },
+    lastCommittedWallTime: ISODate('2025-07-02T13:37:28.574Z'),
+    readConcernMajorityOpTime: { ts: Timestamp({ t: 1751463448, i: 1 }), t: Long('1') },
+    appliedOpTime: { ts: Timestamp({ t: 1751463448, i: 1 }), t: Long('1') },
+    durableOpTime: { ts: Timestamp({ t: 1751463448, i: 1 }), t: Long('1') },
+    writtenOpTime: { ts: Timestamp({ t: 1751463448, i: 1 }), t: Long('1') },
+    lastAppliedWallTime: ISODate('2025-07-02T13:37:28.574Z'),
+    lastDurableWallTime: ISODate('2025-07-02T13:37:28.574Z'),
+    lastWrittenWallTime: ISODate('2025-07-02T13:37:28.574Z')
+  },
+  lastStableRecoveryTimestamp: Timestamp({ t: 1751463428, i: 1 }),
+  electionCandidateMetrics: {
+    lastElectionReason: 'electionTimeout',
+    lastElectionDate: ISODate('2025-07-02T13:27:18.246Z'),
+    electionTerm: Long('1'),
+    lastCommittedOpTimeAtElection: { ts: Timestamp({ t: 1751462838, i: 1 }), t: Long('-1') },
+    lastSeenWrittenOpTimeAtElection: { ts: Timestamp({ t: 1751462838, i: 1 }), t: Long('-1') },
+    lastSeenOpTimeAtElection: { ts: Timestamp({ t: 1751462838, i: 1 }), t: Long('-1') },
+    numVotesNeeded: 1,
+    priorityAtElection: 1,
+    electionTimeoutMillis: Long('10000'),
+    newTermStartDate: ISODate('2025-07-02T13:27:18.383Z'),
+    wMajorityWriteAvailabilityDate: ISODate('2025-07-02T13:27:18.473Z')
+  },
+  members: [
+    {
+      _id: 0,
+      name: 'mongodb:27017',
+      health: 1,
+      state: 1,
+      stateStr: 'PRIMARY',
+      uptime: 656,
+      optime: { ts: Timestamp({ t: 1751463448, i: 1 }), t: Long('1') },
+      optimeDate: ISODate('2025-07-02T13:37:28.000Z'),
+      optimeWritten: { ts: Timestamp({ t: 1751463448, i: 1 }), t: Long('1') },
+      optimeWrittenDate: ISODate('2025-07-02T13:37:28.000Z'),
+      lastAppliedWallTime: ISODate('2025-07-02T13:37:28.574Z'),
+      lastDurableWallTime: ISODate('2025-07-02T13:37:28.574Z'),
+      lastWrittenWallTime: ISODate('2025-07-02T13:37:28.574Z'),
+      syncSourceHost: '',
+      syncSourceId: -1,
+      infoMessage: '',
+      electionTime: Timestamp({ t: 1751462838, i: 2 }),
+      electionDate: ISODate('2025-07-02T13:27:18.000Z'),
+      configVersion: 1,
+      configTerm: 1,
+      self: true,
+      lastHeartbeatMessage: ''
+    }
+  ],
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp({ t: 1751463448, i: 1 }),
+    signature: {
+      hash: Binary.createFromBase64('AAAAAAAAAAAAAAAAAAAAAAAAAAA=', 0),
+      keyId: Long('0')
+    }
+  },
+  operationTime: Timestamp({ t: 1751463448, i: 1 })
+}
+
+```
+能够看到副本集的信息了
+
+
+
+## 新的问题
+
+当你在代码里用prisma连接mongodb时，会出现另外一个错误
+
+```zsh
+MongoDB error Server selection timeout: No available servers
+```
+显示服务不可用，就是没连接成功，在github上找到一个BUG讨论: [Error: MongoDB error Server selection timeout: No available servers. #11929](https://github.com/prisma/prisma/discussions/11929)
+
+翻到下面有个高赞回答： directConnection true is the solution for that // 直连 就能解决
+
+然后我们url参数里加上directConnection=true就可以了
+
+```zsh
+DATABASE_URL="mongodb://localhost:27017/test?replicaSet=rs0&directConnection=true"
+```
+
+## 总结
+
+1、在使用prisma操作mongodb操作简单crud，可能不会触发`隐式使用事务`
+
+2、如果操作触发了`隐式使用事务`，就需要开启副本集

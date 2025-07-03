@@ -10,6 +10,8 @@ const siteLocales = {
   "site.footer.Copyright": "版权所有 © {year} | 保留所有权利",
 
   "notFound": "未找到",
+  "author.name": "酱爆",
+  "author.description": "这家伙很懒，什么也没留下"
 };
 
 const constantLocales = {

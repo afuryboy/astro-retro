@@ -5,7 +5,7 @@ import { Badge } from "@/components/retroui/Badge";
 import { Card } from "@/components/retroui/Card";
 import { Text } from "@/components/retroui/Text";
 import { render } from "astro:content";
-import { getRelativeLocalePath } from "@/i18n/utils";
+import { getRelativeLocalePath, translateFor } from "@/i18n/utils";
 import {components} from '@/components/MDXComponents'
 import { Image } from "astro:assets";
 import pre from '@/components/CodeBlockWrapper.astro'
@@ -18,6 +18,8 @@ const combine = {
   ...components,
   pre
 }
+
+const t = translateFor(Astro.currentLocale);
 ---
 
 <section class="container lg:max-w-4xl mx-auto my-8 px-4 lg:px-0">
@@ -28,10 +30,10 @@ const combine = {
     </span>
     <div class="ml-2">
       <Text>
-        {author.name}
+        {t(`${author.name}`)}
       </Text>
       <Text>
-        {author.description}
+        {t(`${author.description}`)}
       </Text>
     </div>
   </div>

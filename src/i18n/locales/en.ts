@@ -9,6 +9,8 @@ const siteLocales = {
   "site.footer.Copyright": "Copyright © {year} | All rights reserved",
 
    "notFound": "Not Found",
+   "author.name": "JiangBao",
+   "author.description": "This guy is lazy and leaves nothing behind"
 };
 const constantLocales = {
   'Master': 'Master',

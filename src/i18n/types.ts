@@ -8,6 +8,9 @@ export interface I18nStrings {
   "site.footer.Copyright": string;
   "notFound": string;
 
+  "author.name": string;
+  "author.description": string;
+
   "date.published": string;
   "date.updated": string;
   "pageWithNo": string;
