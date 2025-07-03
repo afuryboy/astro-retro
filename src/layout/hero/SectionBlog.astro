@@ -78,7 +78,7 @@ const t = translateFor(Astro.currentLocale)
               <span class="flex border-2 rounded-full overflow-hidden relative w-10 h-10 mr-2">
                 <Image alt="" src={author.avatar} />
               </span>
-              <span class="text-sm font-medium">{author.name}</span>
+              <span class="text-sm font-medium">{t(`${author.name}`)}</span>
             </div>
           </div>
           <a class="mt-5" href={getRelativeLocalePath(Astro.currentLocale, `/posts/${id}/`)}>
@@ -120,7 +120,7 @@ const t = translateFor(Astro.currentLocale)
               <span class="flex border-2 rounded-full overflow-hidden relative w-10 h-10 mr-2">
                 <Image alt="" src={post.data?.author?.avatar} />
               </span>
-              <span class="text-sm font-medium">{post.data?.author?.name}</span>
+              <span class="text-sm font-medium">{t(`${post.data?.author?.name}`)}</span>
             </Card.Content>
           </Card>
         ))
