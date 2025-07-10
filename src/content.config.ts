@@ -21,13 +21,13 @@ const blog = defineCollection({
     }),
 });
 
-const about = defineCollection({
-  loader: glob({ base: "./src/content/about", pattern: "**/*.{md,mdx}" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-  }),
-});
+// const about = defineCollection({
+//   loader: glob({ base: "./src/content/about", pattern: "**/*.{md,mdx}" }),
+//   schema: z.object({
+//     title: z.string(),
+//     description: z.string().optional(),
+//   }),
+// });
 
 
-export const collections = { blog, about };
+export const collections = { blog };

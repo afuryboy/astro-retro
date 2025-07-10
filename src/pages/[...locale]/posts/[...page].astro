@@ -13,12 +13,13 @@ import Line from '@/components/Line.astro'
 import Datetime from "@/components/Datetime.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import PostCard from "@/components/PostCard.astro";
+import getSortedPosts from "@/lib/getSortedPosts";
 
 export async function getStaticPaths({ paginate }) {
   const posts = await getCollection("blog");
-
+  const postsSorted = getSortedPosts(posts)
   const paths = SUPPORT_LOCALES.flatMap((locale) => {
-    return paginate(posts, {
+    return paginate(postsSorted, {
       params: { locale: locale === DEFAULT_LOCALE ? undefined : locale },
       pageSize: SITE.postPerPage,
     });
