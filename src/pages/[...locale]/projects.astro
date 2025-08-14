@@ -1,0 +1,133 @@
+---
+import PrimaryLayout from "@/layout/PrimaryLayout.astro";
+
+import { DEFAULT_LOCALE, SUPPORT_LOCALES } from "@/i18n/config";
+import { Text } from "@/components/retroui/Text";
+
+import { translateFor } from "@/i18n/utils";
+
+export async function getStaticPaths() {
+  return SUPPORT_LOCALES.map((locale) => ({
+    params: { locale: locale === DEFAULT_LOCALE ? undefined : locale },
+  }));
+}
+const t = translateFor(Astro.currentLocale);
+
+const projects = [
+  {
+    name: "场景编辑器",
+    description:
+      "场景编辑器的项目背景是为了解决服务机器人现有平台中任务管理编辑任务模式单一固定等缺点，无法充分利用机器人功能，因此才有了场景编辑器这一低代码任务平台。",
+    images: ["/projects/pji/1-1.png"],
+  },
+  {
+    name: "动作编辑器",
+    description:
+      "动作编辑器的项目背景是为机器人头部面部底部的动作做一个时间轴的配置，可预览。",
+    images: ["/projects/pji/2-2.png"],
+  },
+  {
+    name: "算法平台",
+    description: "演示机器人算法识别能力",
+    images: ["/projects/pji/6-1.png", "/projects/pji/6-2.png"],
+  },
+  {
+    name: "机器人统一平台",
+    description: "抽离各个类型机器人公共部分",
+    images: ["/projects/pji/3-1.png", "/projects/pji/3-2.png"],
+  },
+  {
+    name: "服务机器人平台",
+    description: "服务机器人专属平台",
+    images: ["/projects/pji/4-1.png"],
+  },
+  {
+    name: "服务机器人平台",
+    description: "服务机器人专属平台",
+    images: ["/projects/pji/4-1.png"],
+  },
+  {
+    name: "okx法币（响应式改版）",
+    description:
+      "ok交易所出入金, 当时交易所的网站不是响应式，pc和手机端2套代码，法币是整个公司所有业务中第一个开始响应式改版的业务。截图仅展示法币首页界面。",
+    images: ["/projects/okx/2-1.png"],
+  },
+  {
+    name: "商汤聚晴",
+    description:
+      "基于人脸识别的AI大数据的创新型智能营销平台。内部集成SenseU线下一体机、SenseFocus线下广告屏、SenseADX线上广告交易平台、SenseAR线上广告投放平台.",
+    images: [],
+    noResource: true,
+  },
+  {
+    name: "通用型js sdk设计",
+    description:
+      "github地址：https://github.com/afuryboy/blog/blob/master/source/_drafts/jssdk.md",
+    images: [],
+    noResource: true,
+  },
+  {
+    name: "SenseInsight人群洞察平台",
+    description:
+      "SenseInsight人群洞察产品是基于商汤科技人脸、属性识别等计算机视觉技术，致力于实现户外广告业务等数字化升级的人群洞察产品，可实现人群触达、人群观看、观看时长、人群画像等数据统计功能。",
+    images: [],
+    noResource: true,
+  },
+  {
+    name: "体感游戏（SenseU h5游戏-跳一跳 ）",
+    description: "为sense-u互动广告屏设计的体感游戏",
+    videos: ["/projects/st/st-video-1.mp4"],
+  },
+  {
+    name: "大屏类项目",
+    description:
+      "至今为止做过SenseInsight Demo、北京现代4s店Demo、商汤智广SenseNeo、SenseDOOH户外广告分析平台等大屏项目。",
+    videos: [
+      "/projects/st/st-video-2.mp4",
+      "/projects/st/st-video-3.mp4",
+      "/projects/st/st-video-4.mp4",
+    ],
+  },
+  {
+    name: "h5落地页",
+    description:
+      "用户上传个人照片，利用商汤图像处理技术，进行人脸融合，主要吸引流量进行优惠券发放。",
+    images: ["/projects/st/1-1.jpg"],
+  },
+];
+---
+
+<PrimaryLayout
+  title={`${t("site.nav.projects")} | ${t("site.name")}`}
+  description={t("project.subtitle")}
+>
+  <div class="flex flex-col justify-center items-center py-8">
+    <Text as="h2">{t("project.title")}</Text>
+    <Text className="mt-2">{t("project.subtitle")}</Text>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 pt-4">
+    <div class="mb-8">
+      <div class="md:col-span-2 space-y-8">
+        {
+          projects.map((project) => (
+            <div class="border-4">
+              <div class="border-b-4 p-4 bg-neo-green ">
+                <div class="font-bold">{project.name}</div>
+                <Text className="text-xs">{project.description}</Text>
+              </div>
+              <div class="p-6 space-y-6">
+                <div class="flex flex-col items-start gap-4 border-b-2 border-black/10 last:border-b-0 pb-6 last:pb-0">
+                  {project.images &&
+                    project.images.map((url) => <img src={url} alt="" />)}
+                  {project.videos &&
+                    project.videos.map((url) => <video src={url} controls />)}
+                  {project.noResource && "暂无资料"}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</PrimaryLayout>

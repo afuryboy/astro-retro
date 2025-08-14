@@ -6,6 +6,7 @@ const siteLocales = {
   "site.nav.home": "首页",
   "site.nav.posts": "文章",
   "site.nav.tags": "标签",
+  "site.nav.projects": "项目",
   "site.nav.about": "关于",
   "site.nav.contact": "联系",
   "site.footer.Copyright": "版权所有 © {year} | 保留所有权利",
@@ -57,7 +58,9 @@ const ZHLocales: I18nStrings = {
   "blog.readMore": "阅读更多文章",
   // tag section
   "tag.title": "标签",
-
+  // project section
+  "project.title": "项目",
+  "project.subtitle": "我曾经开发过的项目",
   // about section
   "about.description": "一个10年前端老兵",
   "about.career": "2015年毕业于安徽皖西学院电子信息专业，至今已有10年前端开发经验。曾任职于百度、商汤、OK币所、朴津智能等公司， 热衷于编写整洁的代码和用户体验。",

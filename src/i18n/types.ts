@@ -4,6 +4,7 @@ export interface I18nStrings {
   "site.nav.home": string;
   "site.nav.posts": string;
   "site.nav.tags": string;
+  "site.nav.projects": string;
   "site.nav.about": string;
   "site.nav.contact": string;
   "site.footer.Copyright": string;
@@ -51,6 +52,9 @@ export interface I18nStrings {
   "blog.readMore": string;
   // tag section
   "tag.title": string;
+  // project section
+  "project.title": string;
+  "project.subtitle": string;
 
   // about section
   "about.description": string;

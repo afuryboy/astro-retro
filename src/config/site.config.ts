@@ -13,6 +13,7 @@ export const navConfig = {
     { title: "Home", key: "site.nav.home", href: "/" },
     { title: "Posts", key: "site.nav.posts", href: "/posts" },
     { title: "Tags", key: "site.nav.tags", href: "/tags" },
+    { title: "Projects", key: "site.nav.projects", href: "/projects" },
     { title: "About", key: "site.nav.about", href: "/about" },
     { title: "Contact", key: "site.nav.contact", href: "/contact" },
   ],

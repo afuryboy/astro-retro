@@ -5,6 +5,7 @@ const siteLocales = {
   "site.nav.home": "Home",
   "site.nav.posts": "Posts",
   "site.nav.tags": "Tags",
+  "site.nav.projects": "Projects",
   "site.nav.about": "About",
   "site.nav.contact": "Contact",
   "site.footer.Copyright": "Copyright © {year} | All rights reserved",
@@ -55,7 +56,8 @@ const ENLocales: I18nStrings = {
   "blog.readMore": "Read More Article",
   // tag section
   "tag.title": "tags",
-
+  "project.title": "projects",
+  "project.subtitle": "the projects I have developed",
   // about section
   "about.description": "A 10-year front-end veteran",
   "about.career": "Graduated from Anhui Wanxi University with a major in electronic information in 2015, he has 10 years of front-end development experience. He has worked for Baidu, SenseTime, OKCoin, Pujin Intelligence and other companies, and is passionate about writing clean code and user experience.",
