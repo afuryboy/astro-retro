@@ -96,32 +96,34 @@ const projects = [
   title={`${t("site.nav.projects")} | ${t("site.name")}`}
   description={t("project.subtitle")}
 >
-  <div class="flex flex-col justify-center items-center py-8">
-    <Text as="h2">{t("project.title")}</Text>
-    <Text className="mt-2">{t("project.subtitle")}</Text>
-  </div>
   <div class="max-w-6xl mx-auto px-4 pt-4">
-    <div class="mb-8">
-      <div class="md:col-span-2 space-y-8">
-        {
-          projects.map((project) => (
-            <div class="border-4">
-              <div class="border-b-4 p-4 bg-neo-green ">
-                <div class="font-bold">{project.name}</div>
-                <Text className="text-xs">{project.description}</Text>
-              </div>
-              <div class="p-6 space-y-6">
-                <div class="flex flex-col items-start gap-4 border-b-2 border-black/10 last:border-b-0 pb-6 last:pb-0">
-                  {project.images &&
-                    project.images.map((url) => <img src={url} alt="" />)}
-                  {project.videos &&
-                    project.videos.map((url) => <video src={url} controls />)}
-                  {project.noResource && "暂无资料"}
+    <div class="flex flex-col justify-center items-center py-8">
+      <Text as="h2">{t("project.title")}</Text>
+      <Text className="mt-2">{t("project.subtitle")}</Text>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 pt-4">
+      <div class="mb-8">
+        <div class="md:col-span-2 space-y-8">
+          {
+            projects.map((project) => (
+              <div class="border-4">
+                <div class="border-b-4 p-4 bg-neo-green ">
+                  <div class="font-bold">{project.name}</div>
+                  <Text className="text-xs break-all">{project.description}</Text>
+                </div>
+                <div class="p-6 space-y-6">
+                  <div class="flex flex-col items-start gap-4 border-b-2 border-black/10 last:border-b-0 pb-6 last:pb-0">
+                    {project.images &&
+                      project.images.map((url) => <img src={url} alt="" />)}
+                    {project.videos &&
+                      project.videos.map((url) => <video src={url} controls />)}
+                    {project.noResource && "暂无资料"}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        }
+            ))
+          }
+        </div>
       </div>
     </div>
   </div>
