@@ -85,7 +85,7 @@ export const activityList = [
   {
     icon: '💻',
     content: '使用astro和retroui重构个人站点',
-    time: '10天前'
+    time: '一个月前'
   }
 ] 
 

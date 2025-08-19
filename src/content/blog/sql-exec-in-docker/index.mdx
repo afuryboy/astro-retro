@@ -1,42 +1,41 @@
-
-
 ---
 title: 'docker里如何执行sql'
 description: '使用docker执行sql脚本'
-heroImage: './docker-mongodb.webp'
-tags: ['docker', 'mongodb']
-pubDatetime: 2025-06-30T05:53:09.789Z
+heroImage: './docker-sql.webp'
+tags: ['docker', 'sql']
+pubDatetime: 2025-08-19T06:24:37.802Z
 author:
   name: "author.name"
   description: "author.description"
   avatar: "../images/avatar.webp"
 ---
 
+当我们在docker里运行数据库，想执行初始化sql脚本，这里以mysql为例: 去执行mysql命令会出现报错
 
+### mysql命令报错
 
-
-### docker 运行 数据库
-
-这里就不详细说，网上教程很多
-
-宿主机直接执行mysql命令行是无效的，它会报错
+宿主机直接执行mysql命令行是无效的，它会报错，这是因为mysql安装在docker容器内,宿主机无法直接命令执行。
 
 ```bash
 zsh: command not found: mysql
-
 ```
 
-所以我们必须进入docker里去执行
+### docker exec命令
+
+所以我们必须进入docker里去执行，命令如下：
 
 
 ```bash
 docker exec -it mysql bash
+# docker exec 命令用于在正在运行的Docker 容器中执行命令。它允许用户与容器内部进行交互，而无需进入容器的shell。
+# 命令中mysql是容器名
 ```
 
 此时我们进入mysql命令模式
 
 如果直接执行宿主机的sql文件是不行的
 
+### 容器内复制文件
 
 新开一个终端
 查看容器的文件目录
@@ -54,7 +53,7 @@ docker cp /Users/xxx/xxx.sql 60dba8cdfc5e:/tmp
 
 
 
-
+### 执行sql脚本
 
 回到我们之前进入mysql命令模式
 选择数据库
