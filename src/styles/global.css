@@ -229,3 +229,8 @@ body {
   min-height: 100%;
   width: 100%;
 }
+
+
+.visibility-auto {
+  content-visibility: auto;
+}
